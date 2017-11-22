@@ -1,6 +1,9 @@
 package com.westboy.sell.dto;
 
+import com.fasterxml.jackson.annotation.JsonInclude;
+import com.fasterxml.jackson.databind.annotation.JsonSerialize;
 import com.westboy.sell.dataobject.OrderDetail;
+import com.westboy.sell.utils.serializer.Date2LongSerializer;
 import lombok.Data;
 
 import java.math.BigDecimal;
@@ -30,8 +33,10 @@ public class OrderDTO {
 
     private Integer payStatus;
 
+    @JsonSerialize(using = Date2LongSerializer.class)
     private Date createTime;
 
+    @JsonSerialize(using = Date2LongSerializer.class)
     private Date updateTime;
 
     private List<OrderDetail> orderDetailList;

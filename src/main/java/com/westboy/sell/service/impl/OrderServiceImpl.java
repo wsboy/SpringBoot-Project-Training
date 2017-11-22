@@ -31,7 +31,6 @@ import java.util.List;
 import java.util.stream.Collectors;
 
 
-
 /**
  * @author: wangpengbo
  * @date: 2017/11/20
@@ -101,7 +100,7 @@ public class OrderServiceImpl implements OrderService {
                 .map(e -> new CartDTO(e.getProductId(), e.getProductQuantity())).collect(Collectors.toList());
         productInfoService.decreaseStock(cartDTOList);
 
-        BeanUtils.copyProperties(result,orderDTO);
+        BeanUtils.copyProperties(result, orderDTO);
         return orderDTO;
     }
 
@@ -139,7 +138,7 @@ public class OrderServiceImpl implements OrderService {
         OrderMaster orderMaster = new OrderMaster();
 
         //1.判断订单状态
-        if(!orderDTO.getOrderStatus().equals(OrderStatusEnum.NEW.getCode())) {
+        if (!orderDTO.getOrderStatus().equals(OrderStatusEnum.NEW.getCode())) {
             log.error("【取消订单】订单状态不正确，orderId={}，orderStatus={}", orderDTO.getOrderId(), orderDTO.getOrderStatus());
             throw new SellException(ResultEnum.ORDER_STATUS_ERROR);
         }
@@ -176,7 +175,7 @@ public class OrderServiceImpl implements OrderService {
     @Transactional
     public OrderDTO finish(OrderDTO orderDTO) {
         //判断订单状态
-        if(!orderDTO.getOrderStatus().equals(OrderStatusEnum.NEW.getCode())) {
+        if (!orderDTO.getOrderStatus().equals(OrderStatusEnum.NEW.getCode())) {
             log.error("【完结订单】订单状态不正确，orderId={}，orderStatus={}", orderDTO.getOrderId(), orderDTO.getOrderStatus());
             throw new SellException(ResultEnum.ORDER_STATUS_ERROR);
         }
@@ -196,7 +195,7 @@ public class OrderServiceImpl implements OrderService {
     @Transactional
     public OrderDTO paid(OrderDTO orderDTO) {
         //判断订单状态
-        if(!orderDTO.getOrderStatus().equals(OrderStatusEnum.NEW.getCode())) {
+        if (!orderDTO.getOrderStatus().equals(OrderStatusEnum.NEW.getCode())) {
             log.error("【订单支付成功】订单状态不正确，orderId={}，orderStatus={}", orderDTO.getOrderId(), orderDTO.getOrderStatus());
             throw new SellException(ResultEnum.ORDER_STATUS_ERROR);
         }
