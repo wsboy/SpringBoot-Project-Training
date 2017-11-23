@@ -7,6 +7,7 @@ import com.westboy.sell.enums.ResultEnum;
 import com.westboy.sell.exception.SellException;
 import com.westboy.sell.repository.ProductInfoRepository;
 import com.westboy.sell.service.ProductInfoService;
+import lombok.extern.slf4j.Slf4j;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.data.domain.Page;
 import org.springframework.data.domain.Pageable;
@@ -20,6 +21,7 @@ import java.util.List;
  * @date: 2017/11/17
  */
 @Service
+@Slf4j
 public class ProductInfoServiceImpl implements ProductInfoService {
 
     private final ProductInfoRepository repository;
@@ -50,7 +52,7 @@ public class ProductInfoServiceImpl implements ProductInfoService {
     }
 
     @Override
-    @Transactional(rollbackFor = RuntimeException.class)
+    @Transactional
     public void increaseStock(List<CartDTO> cartDTOList) {
         for (CartDTO cartDTO : cartDTOList) {
             ProductInfo productInfo = repository.findOne(cartDTO.getProductId());
@@ -67,7 +69,7 @@ public class ProductInfoServiceImpl implements ProductInfoService {
     }
 
     @Override
-    @Transactional(rollbackFor = RuntimeException.class)
+    @Transactional
     public void decreaseStock(List<CartDTO> cartDTOList) {
         for (CartDTO cartDTO : cartDTOList) {
             ProductInfo productInfo = repository.findOne(cartDTO.getProductId());

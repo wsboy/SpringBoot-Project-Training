@@ -5,6 +5,7 @@ import com.westboy.sell.dto.OrderDTO;
 import com.westboy.sell.enums.ResultEnum;
 import com.westboy.sell.exception.SellException;
 import com.westboy.sell.form.OrderForm;
+import com.westboy.sell.service.BuyerService;
 import com.westboy.sell.service.OrderService;
 import com.westboy.sell.utils.ResultVOUtil;
 import com.westboy.sell.vo.ResultVO;
@@ -33,9 +34,16 @@ public class BuyerOrderController {
 
     private OrderService orderService;
 
+    private BuyerService buyerService;
+
     @Autowired
     public void setOrderService(OrderService orderService) {
         this.orderService = orderService;
+    }
+
+    @Autowired
+    public void setBuyerService(BuyerService buyerService) {
+        this.buyerService = buyerService;
     }
 
     /**
@@ -86,9 +94,23 @@ public class BuyerOrderController {
     /**
      * 订单详情
      */
+    @GetMapping("/detail")
+    public ResultVO<OrderDTO> detail(@RequestParam("openid") String openid,
+                                     @RequestParam("orderId") String orderId) {
+
+        OrderDTO orderDTO = buyerService.findOrderOne(openid, orderId);
+        return ResultVOUtil.success(orderDTO);
+    }
 
     /**
      * 取消订单
      */
+    @PostMapping("/cancel")
+    public ResultVO cancel(@RequestParam("openid") String openid,
+                           @RequestParam("orderId") String orderId) {
+
+        buyerService.cancelOrder(openid, orderId);
+        return ResultVOUtil.success();
+    }
 
 }

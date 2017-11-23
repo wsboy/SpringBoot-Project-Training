@@ -3,6 +3,7 @@ package com.westboy.sell.service.impl;
 import com.westboy.sell.dataobject.ProductCategory;
 import com.westboy.sell.repository.CategoryRepository;
 import com.westboy.sell.service.CategoryService;
+import lombok.extern.slf4j.Slf4j;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 
@@ -13,6 +14,7 @@ import java.util.List;
  * @date: 2017/11/17
  */
 @Service
+@Slf4j
 public class CategoryServiceImpl implements CategoryService {
 
 
